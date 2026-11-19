@@ -81,4 +81,13 @@ dconf load /org/gnome/desktop/wm/preferences/ < dconf/org_gnome_desktop_wm_prefe
 dconf load /org/gnome/desktop/background/ < dconf/org_gnome_desktop_background.ini
 dconf load /org/gnome/shell/keybindings/ < dconf/org_gnome_shell_keybindings.ini
 
+echo "› Sincronización claro/oscuro (todo sigue la apariencia elegida)"
+mkdir -p "$HOME/.local/bin" "$HOME/.config/autostart"
+cp scripts/zorin-tema-sync "$HOME/.local/bin/" && chmod +x "$HOME/.local/bin/zorin-tema-sync"
+sed "s|/home/carlos|$HOME|" autostart/zorin-tema-sync.desktop > "$HOME/.config/autostart/zorin-tema-sync.desktop"
+# libadwaita/GTK4: claro -> gtk.css, oscuro -> gtk-dark.css
+if [ -f "$HOME/.config/gtk-4.0/gtk-Light.css" ]; then
+  ln -sf gtk-Light.css "$HOME/.config/gtk-4.0/gtk.css"; ln -sf gtk-Dark.css "$HOME/.config/gtk-4.0/gtk-dark.css"
+fi
+
 echo "Listo. Cierra sesión y vuelve a entrar para aplicar todo."

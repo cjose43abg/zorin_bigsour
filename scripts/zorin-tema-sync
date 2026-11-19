@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Mantiene todo el escritorio coherente con la apariencia elegida (claro/oscuro).
+# Uso: zorin-tema-sync            -> se queda vigilando color-scheme
+#      zorin-tema-sync light|dark -> aplica ese modo ahora
+I=org.gnome.desktop.interface
+setv() { [ "$(gsettings get "$1" "$2")" = "'$3'" ] || gsettings set "$1" "$2" "$3"; }
+apply() {
+  if [ "$1" = dark ]; then V=Dark; ICON=WhiteSur-dark; CS=prefer-dark; else V=Light; ICON=WhiteSur; CS=prefer-light; fi
+  setv $I color-scheme "$CS"
+  setv $I gtk-theme "WhiteSur-$V"
+  setv $I icon-theme "$ICON"
+  setv org.gnome.shell.extensions.user-theme name "WhiteSur-$V"
+  setv org.gnome.desktop.wm.preferences theme "WhiteSur-$V"
+}
+current() { case "$(gsettings get $I color-scheme)" in *dark*) echo dark;; *) echo light;; esac; }
+case "$1" in light|dark) apply "$1"; exit;; esac
+apply "$(current)"
+gsettings monitor $I color-scheme | while read -r _; do sleep 1; apply "$(current)"; done

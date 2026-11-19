@@ -31,6 +31,9 @@ Después **cierra sesión y vuelve a entrar** (en Wayland GNOME no carga extensi
 
 Para vigilar cambios de ajustes del dock mientras los modificas: `dconf watch /org/gnome/shell/extensions/zorin-taskbar/`.
 
+## Claro / oscuro
+`scripts/zorin-tema-sync` vigila `color-scheme` y ajusta tema GTK, Shell, iconos y tema de ventanas a WhiteSur-Light o WhiteSur-Dark. Se inicia con la sesión. Manual: `zorin-tema-sync dark|light`. En Brave elige *Apariencia → Modo: Igual que el dispositivo*; en Claude, *Ajustes → Apariencia → Sistema*.
+
 ## Notas
 - El ancho dinámico y el centrado del dock se guardan por monitor en Zorin Taskbar. Si no se aplican, ajústalos en *Apariencia de Zorin → Opciones de barra de tareas → Position*.
 - El radio del dock solo admite 0–5 (×5 px).

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Sincronizar tema claro/oscuro
+Exec=/home/carlos/.local/bin/zorin-tema-sync
+X-GNOME-Autostart-enabled=true
+NoDisplay=true

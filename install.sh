@@ -51,6 +51,19 @@ gsettings set org.gnome.desktop.interface font-name 'Inter 10'
 gsettings set org.gnome.desktop.interface document-font-name 'Inter 10'
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 10'
 
+echo "› Brave: barra de título del sistema (botones rojo/amarillo/verde)"
+# Brave se abre en modo X11 para que GNOME dibuje la barra; la opción
+# "Usar la barra de título del sistema" debe estar activa en brave://settings/appearance
+cp launchers-extra/brave-browser.desktop "$APPS/"
+gsettings set org.gnome.desktop.wm.preferences theme 'WhiteSur-Light'
+
+echo "› Fondos de pantalla Tahoe"
+mkdir -p "$HOME/Imágenes/Fondos-Tahoe"
+cp wallpapers/*.jpeg "$HOME/Imágenes/Fondos-Tahoe/"
+gsettings set org.gnome.desktop.background picture-uri "file://$HOME/Imágenes/Fondos-Tahoe/MacTahoe-day.jpeg"
+gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/Imágenes/Fondos-Tahoe/MacTahoe-night.jpeg"
+gsettings set org.gnome.desktop.background picture-options 'zoom'
+
 echo "› F4 = todas las aplicaciones"
 gsettings set org.gnome.shell.keybindings toggle-application-view "['<Super>a','F4','XF86LaunchA','XF86Launch1']"
 

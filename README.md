@@ -8,6 +8,8 @@ Personalización de Zorin OS 18 (GNOME 46, Wayland) para que se vea y se comport
 - **Extensión `clock-right@local`**: reloj a la derecha del panel superior, botones apagar/reiniciar/suspender a la izquierda y acciones D-Bus para los iconos del dock (Launchpad abre todas las apps).
 - **Tema**: WhiteSur (GTK, iconos, cursor), botones de ventana rojo/amarillo/verde a la izquierda, panel superior más oscuro, sin transiciones de resaltado.
 - **Tipografía**: Inter 10 en toda la interfaz (equivalente libre de San Francisco, la fuente de macOS; SF no se puede redistribuir).
+- **Fondos Tahoe** (día/noche, 4K) de [vinceliuice/MacTahoe-gtk-theme](https://github.com/vinceliuice/MacTahoe-gtk-theme), licencia MIT.
+- **Brave** en modo X11 con la barra de título del sistema, para tener los botones de colores de WhiteSur.
 - **F4** abre la cuadrícula de aplicaciones.
 
 ## Requisitos
@@ -27,5 +29,6 @@ Después **cierra sesión y vuelve a entrar** (en Wayland GNOME no carga extensi
 ## Notas
 - El ancho dinámico y el centrado del dock se guardan por monitor en Zorin Taskbar. Si no se aplican, ajústalos en *Apariencia de Zorin → Opciones de barra de tareas → Position*.
 - El radio del dock solo admite 0–5 (×5 px).
-- Los botones de ventana de apps con barra de título propia (por ejemplo Claude) no se pueden tematizar.
+- Los botones de ventana de apps con barra de título propia (por ejemplo Claude) no se pueden tematizar. `launchers-extra/com.anthropic.Claude.desktop` es un intento experimental (`--gtk-version=4`) que no se instala por defecto.
+- El dock solo se oculta cuando una ventana se superpone a él (Zorin Taskbar no tiene «ocultar siempre»).
 - `theme/panel-dark.txt` y `theme/no-transitions.css` documentan los ajustes hechos al tema WhiteSur.

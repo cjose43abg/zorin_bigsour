@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Inicio
+Icon=apple-menu
+Exec=gdbus call --session --dest org.local.DockActions --object-path /org/local/DockActions --method org.local.DockActions.Menu
+Terminal=false
+StartupNotify=false

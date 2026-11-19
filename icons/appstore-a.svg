@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1dc7ff"/><stop offset="1" stop-color="#1a63f0"/></linearGradient>
+<mask id="gap" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
+<rect width="256" height="256" fill="#fff"/>
+<rect x="0" y="150" width="256" height="34" fill="#000"/>
+</mask>
+</defs>
+<rect x="4" y="4" width="248" height="248" rx="58" fill="url(#g)"/>
+<g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+<path d="M148 62 L58 208" stroke-width="22" mask="url(#gap)"/>
+<path d="M110 62 L203 208" stroke-width="26" mask="url(#gap)"/>
+<path d="M52 161 L206 161" stroke-width="22"/>
+</g>
+</svg>

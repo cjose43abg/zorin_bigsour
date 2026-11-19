@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Launchpad
+Icon=launchpad-grid
+Exec=gdbus call --session --dest org.local.DockActions --object-path /org/local/DockActions --method org.local.DockActions.Launchpad
+Terminal=false
+StartupNotify=false

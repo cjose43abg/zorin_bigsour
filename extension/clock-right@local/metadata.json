@@ -1,0 +1,6 @@
+{
+  "uuid": "clock-right@local",
+  "name": "Reloj a la derecha",
+  "description": "Mueve el reloj del panel superior junto a los iconos de la bandeja.",
+  "shell-version": ["45", "46", "47", "48"]
+}

@@ -1,0 +1,2 @@
+En ~/.themes/WhiteSur-Light/gnome-shell/gnome-shell.css, dentro de "#panel" y "#panel .panel-corner",
+reemplazar rgba(255, 255, 255, 0.155) por rgba(12, 12, 20, 0.62).

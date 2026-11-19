@@ -1,0 +1,5 @@
+/* SIN-LATENCIA: sin desvanecidos al pasar el ratón */
+StWidget, StButton, .popup-menu-item, .button, .panel-button, .app-well-app, .overview-icon {
+  transition-duration: 0ms !important;
+  transition: none !important;
+}

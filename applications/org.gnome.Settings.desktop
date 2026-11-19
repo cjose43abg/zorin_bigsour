@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Configuración
+Name[es]=Configuración
+Comment=Ajustes del equipo
+Icon=org.gnome.Settings
+Exec=gnome-control-center
+Terminal=false
+Categories=GNOME;GTK;Settings;
+StartupNotify=true
+StartupWMClass=gnome-control-center

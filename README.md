@@ -7,11 +7,12 @@ Personalización de Zorin OS 18 (GNOME 46, Wayland) para que se vea y se comport
 - **Iconos propios** dibujados en SVG + PNG: Finder (carita), App Store (A), Launchpad (cuadrícula), logo de Apple.
 - **Extensión `clock-right@local`**: reloj a la derecha del panel superior, botones apagar/reiniciar/suspender a la izquierda y acciones D-Bus para los iconos del dock (Launchpad abre todas las apps).
 - **Tema**: WhiteSur (GTK, iconos, cursor), botones de ventana rojo/amarillo/verde a la izquierda, panel superior más oscuro, sin transiciones de resaltado.
+- **Tipografía**: Inter 10 en toda la interfaz (equivalente libre de San Francisco, la fuente de macOS; SF no se puede redistribuir).
 - **F4** abre la cuadrícula de aplicaciones.
 
 ## Requisitos
 ```bash
-sudo apt install git curl gnome-tweaks gnome-shell-extension-manager sassc libglib2.0-dev-bin gnome-control-center -y
+sudo apt install git curl gnome-tweaks gnome-shell-extension-manager sassc libglib2.0-dev-bin gnome-control-center fonts-inter -y
 git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git --depth=1 && cd WhiteSur-gtk-theme && ./install.sh -l -N glassy --round -c Light -c Dark
 git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git --depth=1 && cd WhiteSur-icon-theme && ./install.sh -a
 git clone https://github.com/vinceliuice/WhiteSur-cursors.git --depth=1 && cd WhiteSur-cursors && ./install.sh

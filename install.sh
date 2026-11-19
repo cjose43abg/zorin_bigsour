@@ -45,6 +45,12 @@ gsettings set $TB global-border-radius 5
 gsettings set $TB trans-use-custom-opacity true
 gsettings set $TB trans-panel-opacity 0.5
 
+echo "› Tipografía (Inter, el equivalente libre de San Francisco)"
+if ! fc-list | grep -qi "Inter-Regular\|Inter,"; then echo "  Instala la fuente: sudo apt install fonts-inter"; fi
+gsettings set org.gnome.desktop.interface font-name 'Inter 10'
+gsettings set org.gnome.desktop.interface document-font-name 'Inter 10'
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 10'
+
 echo "› F4 = todas las aplicaciones"
 gsettings set org.gnome.shell.keybindings toggle-application-view "['<Super>a','F4','XF86LaunchA','XF86Launch1']"
 

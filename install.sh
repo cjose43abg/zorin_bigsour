@@ -67,4 +67,18 @@ gsettings set org.gnome.desktop.background picture-options 'zoom'
 echo "› F4 = todas las aplicaciones"
 gsettings set org.gnome.shell.keybindings toggle-application-view "['<Super>a','F4','XF86LaunchA','XF86Launch1']"
 
+echo "› Botones de ventana GTK4 pequeños"
+bash theme/gtk4-window-buttons.sh
+
+echo "› Snapshot exacto de ajustes (dock, tema, fuentes, fondo, atajos)"
+# Sobrescribe los valores anteriores con los del equipo original.
+# OJO: panel-lengths/anchors/element-positions usan el ID del monitor (APP-0x00000000, MacBook Air).
+# En otro monitor, ajusta esas claves o repítelas desde Apariencia de Zorin → Opciones de barra de tareas.
+dconf load /org/gnome/shell/extensions/zorin-taskbar/ < dconf/org_gnome_shell_extensions_zorin-taskbar.ini
+dconf load /org/gnome/shell/extensions/user-theme/ < dconf/org_gnome_shell_extensions_user-theme.ini
+dconf load /org/gnome/desktop/interface/ < dconf/org_gnome_desktop_interface.ini
+dconf load /org/gnome/desktop/wm/preferences/ < dconf/org_gnome_desktop_wm_preferences.ini
+dconf load /org/gnome/desktop/background/ < dconf/org_gnome_desktop_background.ini
+dconf load /org/gnome/shell/keybindings/ < dconf/org_gnome_shell_keybindings.ini
+
 echo "Listo. Cierra sesión y vuelve a entrar para aplicar todo."

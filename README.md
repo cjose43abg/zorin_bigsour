@@ -26,6 +26,11 @@ git clone https://github.com/vinceliuice/WhiteSur-cursors.git --depth=1 && cd Wh
 ```
 Después **cierra sesión y vuelve a entrar** (en Wayland GNOME no carga extensiones nuevas hasta reiniciar la sesión).
 
+## Copia exacta
+`dconf/` contiene un snapshot de los ajustes reales del equipo original (dock con ancho dinámico, margen, esquinas, tema, fuentes, fondo y atajos). `install.sh` lo aplica al final, de modo que el resultado coincide con el original. Para volver a capturarlo: `dconf dump /ruta/ > dconf/archivo.ini`.
+
+Para vigilar cambios de ajustes del dock mientras los modificas: `dconf watch /org/gnome/shell/extensions/zorin-taskbar/`.
+
 ## Notas
 - El ancho dinámico y el centrado del dock se guardan por monitor en Zorin Taskbar. Si no se aplican, ajústalos en *Apariencia de Zorin → Opciones de barra de tareas → Position*.
 - El radio del dock solo admite 0–5 (×5 px).

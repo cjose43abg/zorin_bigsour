@@ -10,6 +10,7 @@ Personalización de Zorin OS 18 (GNOME 46, Wayland) para que se vea y se comport
 - **Tipografía**: Inter 10 en toda la interfaz (equivalente libre de San Francisco, la fuente de macOS; SF no se puede redistribuir).
 - **Fondos Tahoe** (día/noche, 4K) de [vinceliuice/MacTahoe-gtk-theme](https://github.com/vinceliuice/MacTahoe-gtk-theme), licencia MIT.
 - **Brave** en modo X11 con la barra de título del sistema, para tener los botones de colores de WhiteSur.
+- **Botones de ventana juntos** como en macOS: círculos de 12 px a 7 px de distancia (`theme/botones-ventana.sh`), en apps GTK4, GTK3 y Brave con tema GTK.
 - **Iconos por función** (`scripts/iconos-apps.sh`, iconos propios en `icons/mac/`): cada programa toma el icono de su equivalente en macOS — navegador → Safari, WhatsApp → Mensajes, correo → Mail, visor de PDF → Libros, vídeos → TV, música → Música, visor de imágenes → Fotos, editor de texto → Notas, tareas → Recordatorios, calculadora, cámara, relojes, contactos, tiempo, grabadora → Notas de voz, podcasts, traductor, contraseñas → Cartera, Zoom → FaceTime, configuración y monitor del sistema. Revertir: `bash scripts/iconos-apps.sh --revertir`.
 - **F4** abre la cuadrícula de aplicaciones.
 - **Launchpad con vidrio**: Actividades y la cuadrícula de apps muestran el fondo difuminado con una capa translúcida (`theme/overview-glass.sh`). Son imágenes pre-difuminadas, sin blur en tiempo real.

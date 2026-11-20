@@ -69,6 +69,7 @@ gsettings set org.gnome.shell.keybindings toggle-application-view "['<Super>a','
 
 echo "› Botones de ventana GTK4 pequeños"
 bash theme/gtk4-window-buttons.sh
+bash theme/botones-ventana.sh
 
 echo "› Snapshot exacto de ajustes (dock, tema, fuentes, fondo, atajos)"
 # Sobrescribe los valores anteriores con los del equipo original.

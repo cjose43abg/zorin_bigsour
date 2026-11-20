@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # Brave con los botones de ventana del sistema (tema GTK → círculos de WhiteSur)
-# y sin el aviso de "--enable-unsafe-webgpu". Cierra Brave antes de ejecutarlo.
+# y sin el aviso de "--enable-unsafe-webgpu". Cierra Brave por su cuenta si está abierto.
 set -uo pipefail
 B="$HOME/.config/BraveSoftware/Brave-Browser"
 [ -d "$B" ] || { echo "No se encontró el perfil de Brave en $B"; exit 0; }
-if pgrep -x brave >/dev/null || pgrep -f brave-browser >/dev/null; then
-  echo "Brave está abierto. Ciérralo (incluidas las apps web como WhatsApp) y vuelve a ejecutar."; exit 1
+if pgrep -x brave >/dev/null; then
+  echo "› Cerrando Brave (también el que queda en segundo plano)..."
+  pkill -x brave
+  for _ in $(seq 20); do pgrep -x brave >/dev/null || break; sleep 0.5; done
+  pkill -9 -x brave 2>/dev/null; sleep 1
 fi
 python3 - "$B" <<'PY'
 import json, os, sys, shutil, glob

@@ -2,6 +2,8 @@
 # Brave con los botones de ventana del sistema (tema GTK → círculos de WhiteSur)
 # y sin el aviso de "--enable-unsafe-webgpu". Cierra Brave por su cuenta si está abierto.
 set -uo pipefail
+# --barra-sistema: Zorin dibuja la barra y los botones (lo que funcionó en el equipo original).
+FRAME=true; [ "${1:-}" = --barra-sistema ] && FRAME=false
 B="$HOME/.config/BraveSoftware/Brave-Browser"
 [ -d "$B" ] || { echo "No se encontró el perfil de Brave en $B"; exit 0; }
 if pgrep -x brave >/dev/null; then
@@ -10,7 +12,7 @@ if pgrep -x brave >/dev/null; then
   for _ in $(seq 20); do pgrep -x brave >/dev/null || break; sleep 0.5; done
   pkill -9 -x brave 2>/dev/null; sleep 1
 fi
-python3 - "$B" <<'PY'
+python3 - "$B" "$FRAME" <<'PY'
 import json, os, sys, shutil, glob
 B = sys.argv[1]
 def edit(path, fn):
@@ -24,7 +26,7 @@ def theme(d):
     t = d.setdefault("extensions", {}).setdefault("theme", {})
     t["system_theme"] = 1          # 1 = GTK
     t.pop("id", None)
-    d.setdefault("browser", {})["custom_chrome_frame"] = True   # pestañas en la barra
+    d.setdefault("browser", {})["custom_chrome_frame"] = sys.argv[2] == "true"
 def flags(d):
     lab = d.get("browser", {}).get("enabled_labs_experiments", [])
     d.setdefault("browser", {})["enabled_labs_experiments"] = [f for f in lab if "unsafe-webgpu" not in f]
@@ -39,4 +41,8 @@ done
 grep -rl "unsafe-webgpu" "$HOME/.local/share/applications" "$HOME/Escritorio" "$HOME/Desktop" 2>/dev/null | while read -r f; do
   sed -i 's/ *--enable-unsafe-webgpu//g' "$f" && echo "  limpiado: $f"
 done
-echo "Listo. Abre Brave."
+echo "Listo. Abre Brave desde el dock."
+echo "--- Diagnóstico (mándalo si algo falla) ---"
+echo "Sesión: ${XDG_SESSION_TYPE:-?}"
+grep -h "^Exec=" "$HOME/.local/share/applications/brave-browser.desktop" 2>/dev/null | head -1
+python3 -c "import json,sys;d=json.load(open(sys.argv[1]));print('Tema:',d.get('extensions',{}).get('theme'),'| Marco propio:',d.get('browser',{}).get('custom_chrome_frame'))" "$B/Default/Preferences"

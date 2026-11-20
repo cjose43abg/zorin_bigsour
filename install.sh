@@ -93,6 +93,9 @@ fi
 echo "› Fondo de Actividades/Launchpad difuminado (vidrio)"
 bash theme/overview-glass.sh
 
+echo "› Iconos de apps al estilo macOS (Safari, Mensajes, Libros...)"
+bash scripts/iconos-apps.sh
+
 echo "› Ajustes de este equipo (monitor, dock, extensiones)"
 bash scripts/ajustar-equipo.sh
 

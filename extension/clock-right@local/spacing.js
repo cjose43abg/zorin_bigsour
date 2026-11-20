@@ -1,8 +1,10 @@
 // Separación entre iconos del dock. Zorin Taskbar usa 24 px fijos
-// (4 px de margen + 8 px de relleno a cada lado); aquí se reduce el margen.
+// (4 px de margen + 8 px de relleno a cada lado). Aquí se quita el margen y se
+// reduce el relleno lateral; el alto (y por tanto el tamaño del icono) no cambia.
 import GLib from 'gi://GLib';
 
-const MARGIN = 1;   // px a cada lado del icono (Zorin: 4). Hueco total = 2*MARGIN + 16
+const MARGIN = 0;   // px a cada lado del icono (Zorin: 4)
+const SIDE = 6;     // relleno lateral del icono (Zorin: 8). Hueco total = 2*MARGIN + 2*SIDE
 
 export class DockSpacing {
     enable() {
@@ -38,7 +40,10 @@ export class DockSpacing {
         const orig = proto._setAppIconPadding;
         const patched = function () {
             orig.call(this);
-            if (!this.dtpPanel?.geom?.vertical) this.set_style(`padding: 0 ${MARGIN}px;`);
+            if (this.dtpPanel?.geom?.vertical) return;
+            this.set_style(`padding: 0 ${MARGIN}px;`);
+            const m = /padding:\s*([\d.]+)px/.exec(this._iconContainer?.get_style() ?? '');
+            if (m) this._iconContainer.set_style(`padding: ${m[1]}px ${SIDE}px;`);
         };
         patched._macSpacing = true;
         this._proto = proto; this._orig = orig;

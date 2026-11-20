@@ -35,8 +35,8 @@ Para vigilar cambios de ajustes del dock mientras los modificas: `dconf watch /o
 `scripts/zorin-tema-sync` vigila `color-scheme` y ajusta tema GTK, Shell, iconos y tema de ventanas a WhiteSur-Light o WhiteSur-Dark. Se inicia con la sesión. Manual: `zorin-tema-sync dark|light`. En Brave elige *Apariencia → Modo: Igual que el dispositivo*; en Claude, *Ajustes → Apariencia → Sistema*.
 
 ## Notas
-- El ancho dinámico y el centrado del dock se guardan por monitor en Zorin Taskbar. Si no se aplican, ajústalos en *Apariencia de Zorin → Opciones de barra de tareas → Position*.
+- El ancho dinámico y el centrado del dock se guardan por monitor en Zorin Taskbar. `scripts/ajustar-equipo.sh` (lo llama `install.sh`) detecta los monitores del equipo y les aplica dock centrado y dinámico, sin logo de Zorin ni bandeja. Tras conectar otro monitor, ejecútalo de nuevo.
 - El radio del dock solo admite 0–5 (×5 px).
 - Los botones de ventana de apps con barra de título propia (por ejemplo Claude) no se pueden tematizar. `launchers-extra/com.anthropic.Claude.desktop` es un intento experimental (`--gtk-version=4`) que no se instala por defecto.
-- El dock solo se oculta cuando una ventana se superpone a él (Zorin Taskbar no tiene «ocultar siempre»).
+- El dock se oculta siempre (`intellihide-hide-from-windows=false`) y aparece al llevar el puntero al borde inferior.
 - `theme/panel-dark.txt` y `theme/no-transitions.css` documentan los ajustes hechos al tema WhiteSur.

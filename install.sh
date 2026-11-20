@@ -90,4 +90,7 @@ if [ -f "$HOME/.config/gtk-4.0/gtk-Light.css" ]; then
   ln -sf gtk-Light.css "$HOME/.config/gtk-4.0/gtk.css"; ln -sf gtk-Dark.css "$HOME/.config/gtk-4.0/gtk-dark.css"
 fi
 
+echo "› Ajustes de este equipo (monitor, dock, extensiones)"
+bash scripts/ajustar-equipo.sh
+
 echo "Listo. Cierra sesión y vuelve a entrar para aplicar todo."

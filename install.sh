@@ -16,7 +16,7 @@ gtk-update-icon-cache -f "$HI" >/dev/null 2>&1 || true
 
 echo "› Lanzadores del dock"
 cp applications/*.desktop "$APPS/"
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop','launchpad.desktop','apple-menu.desktop','brave-browser.desktop','org.gnome.Software.desktop','org.gnome.Settings.desktop']"
+gsettings set org.gnome.shell favorite-apps "$(cat dconf/favorite-apps.txt)"
 
 echo "› Extensión (reloj a la derecha, apagar/reiniciar/suspender, acciones del dock)"
 cp -r extension/clock-right@local "$EXT/"

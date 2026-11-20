@@ -1,0 +1,1 @@
+['apple-menu.desktop', 'launchpad.desktop', 'org.gnome.Nautilus.desktop', 'brave-browser.desktop', 'org.gnome.Software.desktop', 'org.gnome.Settings.desktop']

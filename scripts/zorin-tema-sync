@@ -12,6 +12,14 @@ apply() {
   setv org.gnome.shell.extensions.user-theme name "WhiteSur-$V"
   setv org.gnome.desktop.wm.preferences theme "WhiteSur-$V"
 }
+# Finder y demás apps libadwaita: claro -> gtk.css, oscuro -> gtk-dark.css
+fixlinks() {
+  d="$HOME/.config/gtk-4.0"
+  [ -f "$d/gtk-Light.css" ] && [ -f "$d/gtk-Dark.css" ] || return
+  [ "$(readlink "$d/gtk.css")" = gtk-Light.css ] || ln -sf gtk-Light.css "$d/gtk.css"
+  [ "$(readlink "$d/gtk-dark.css")" = gtk-Dark.css ] || ln -sf gtk-Dark.css "$d/gtk-dark.css"
+}
+fixlinks
 current() { case "$(gsettings get $I color-scheme)" in *dark*) echo dark;; *) echo light;; esac; }
 case "$1" in light|dark) apply "$1"; exit;; esac
 apply "$(current)"

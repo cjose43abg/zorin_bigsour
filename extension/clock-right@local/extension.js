@@ -4,6 +4,7 @@ import Gio from 'gi://Gio';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import {DockMagnifier} from './magnify.js';
+import {DockSpacing} from './spacing.js';
 
 const IFACE = `<node><interface name="org.local.DockActions">
   <method name="Launchpad"/>
@@ -73,6 +74,8 @@ export default class ClockLeft extends Extension {
         this._exportDBus();
         this._mag = new DockMagnifier();
         this._mag.enable();
+        this._spacing = new DockSpacing();
+        this._spacing.enable();
         this._t1 = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 3, () => {
             this._move(); this._t1 = 0; return GLib.SOURCE_REMOVE;
         });
@@ -81,6 +84,7 @@ export default class ClockLeft extends Extension {
 
     disable() {
         this._mag?.disable(); this._mag = null;
+        this._spacing?.disable(); this._spacing = null;
         if (this._t1) GLib.source_remove(this._t1);
         if (this._sig) Main.panel._rightBox.disconnect(this._sig);
         this._box?.destroy(); this._box = null;

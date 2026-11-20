@@ -11,6 +11,7 @@ Personalización de Zorin OS 18 (GNOME 46, Wayland) para que se vea y se comport
 - **Fondos Tahoe** (día/noche, 4K) de [vinceliuice/MacTahoe-gtk-theme](https://github.com/vinceliuice/MacTahoe-gtk-theme), licencia MIT.
 - **Brave** en modo X11 con la barra de título del sistema, para tener los botones de colores de WhiteSur.
 - **F4** abre la cuadrícula de aplicaciones.
+- **Launchpad con vidrio**: Actividades y la cuadrícula de apps muestran el fondo difuminado con una capa translúcida (`theme/overview-glass.sh`). Son imágenes pre-difuminadas, sin blur en tiempo real.
 
 ## Requisitos
 ```bash

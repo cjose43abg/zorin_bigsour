@@ -15,6 +15,7 @@ Personalización de Zorin OS 18 (GNOME 46, Wayland) para que se vea y se comport
 - **Iconos por función** (`scripts/iconos-apps.sh`, iconos propios en `icons/mac/`): cada programa toma el icono de su equivalente en macOS — navegador → Safari, WhatsApp → Mensajes, correo → Mail, visor de PDF → Libros, vídeos → TV, música → Música, visor de imágenes → Fotos, editor de texto → Notas, tareas → Recordatorios, calculadora, cámara, relojes, contactos, tiempo, grabadora → Notas de voz, podcasts, traductor, contraseñas → Cartera, Zoom → FaceTime, configuración y monitor del sistema. Revertir: `bash scripts/iconos-apps.sh --revertir`.
 - **Efecto ola en el dock** (`extension/clock-right@local/magnify.js`): al pasar el puntero, el icono crece hasta 1,6× y sus vecinos menos, como en macOS. Zorin Taskbar no lo trae; lo añade nuestra extensión. Ajustes al inicio del archivo (`MAX`, `SPREAD`).
 - **Iconos del dock más juntos** (`extension/clock-right@local/spacing.js`): 12 px entre iconos en vez de los 24 fijos de Zorin Taskbar, sin cambiar su tamaño. Ajustes: `MARGIN` y `SIDE`.
+- **Pantalla de inicio de sesión** (`theme/pantalla-inicio.sh`, pide contraseña de administrador): fondo Tahoe difuminado y tema WhiteSur en GDM, igual que la pantalla de bloqueo. Revertir: `--revertir`.
 - **F4** abre la cuadrícula de aplicaciones.
 - **Launchpad con vidrio**: Actividades y la cuadrícula de apps muestran el fondo difuminado con una capa translúcida (`theme/overview-glass.sh`). Son imágenes pre-difuminadas, sin blur en tiempo real.
 

@@ -1,51 +1,89 @@
 # Zorin OS → macOS
 
-Personalización de Zorin OS 18 (GNOME 46, Wayland) para que se vea y se comporte como macOS, sin Zorin Pro y **sin blur** (ligera en RAM/GPU).
-
-## Qué incluye
-- **Dock** inferior estilo macOS: centrado, bordes redondeados, ocultación automática (Zorin Taskbar).
-- **Iconos propios** dibujados en SVG + PNG: Finder (carita), App Store (A), Launchpad (cuadrícula), logo de Apple.
-- **Extensión `clock-right@local`**: reloj a la derecha del panel superior, botones apagar/reiniciar/suspender a la izquierda y acciones D-Bus para los iconos del dock (Launchpad abre todas las apps).
-- **Tema**: WhiteSur (GTK, iconos, cursor), botones de ventana rojo/amarillo/verde a la izquierda, panel superior más oscuro, sin transiciones de resaltado.
-- **Tipografía**: Inter 10 en toda la interfaz (equivalente libre de San Francisco, la fuente de macOS; SF no se puede redistribuir).
-- **Fondos Tahoe** (día/noche, 4K) de [vinceliuice/MacTahoe-gtk-theme](https://github.com/vinceliuice/MacTahoe-gtk-theme), licencia MIT.
-- **Brave** en modo X11 con la barra de título del sistema, para tener los botones de colores de WhiteSur.
-- **Botones de ventana juntos** como en macOS: círculos de 12 px a 7 px de distancia (`theme/botones-ventana.sh`), en apps GTK4, GTK3 y Brave con tema GTK.
-- **Brave con botones del sistema**: `scripts/brave-ajustes.sh` (con Brave cerrado) activa el tema GTK —círculos de WhiteSur en vez de los botones propios de Chromium— y quita el aviso de `--enable-unsafe-webgpu`. Guarda copia `*.antes-mac` de lo que edita.
-- **Iconos por función** (`scripts/iconos-apps.sh`, iconos propios en `icons/mac/`): cada programa toma el icono de su equivalente en macOS — navegador → Safari, WhatsApp → Mensajes, correo → Mail, visor de PDF → Libros, vídeos → TV, música → Música, visor de imágenes → Fotos, editor de texto → Notas, tareas → Recordatorios, calculadora, cámara, relojes, contactos, tiempo, grabadora → Notas de voz, podcasts, traductor, contraseñas → Cartera, Zoom → FaceTime, configuración y monitor del sistema. Revertir: `bash scripts/iconos-apps.sh --revertir`.
-- **Efecto ola en el dock** (`extension/clock-right@local/magnify.js`): al pasar el puntero, el icono crece hasta 1,6× y sus vecinos menos, como en macOS. Zorin Taskbar no lo trae; lo añade nuestra extensión. Ajustes al inicio del archivo (`MAX`, `SPREAD`).
-- **Iconos del dock más juntos** (`extension/clock-right@local/spacing.js`): 12 px entre iconos en vez de los 24 fijos de Zorin Taskbar, sin cambiar su tamaño. Ajustes: `MARGIN` y `SIDE`.
-- **Pantalla de inicio de sesión** (`theme/pantalla-inicio.sh`, pide contraseña de administrador): fondo Tahoe difuminado y tema WhiteSur en GDM, igual que la pantalla de bloqueo. Revertir: `--revertir`.
-- **Más fondos** (`scripts/fondos.sh`): Tahoe, Sonoma, Ventura, Monterey y Big Sur con versión clara y oscura, registrados en Configuración → Apariencia. Licencia MIT ([vinceliuice/WhiteSur-wallpapers](https://github.com/vinceliuice/WhiteSur-wallpapers)); se descargan, no se guardan en este repositorio.
-- **Iconos del escritorio proporcionados** (`theme/iconos-escritorio.sh`): casilla de 92 px de ancho en vez de 120, nombres a 9 pt y recuadro de selección ceñido, en una copia local de la extensión de iconos de escritorio. Revertir: `--revertir`.
-- **F4** abre la cuadrícula de aplicaciones.
-- **Launchpad con vidrio**: Actividades y la cuadrícula de apps muestran el fondo difuminado con una capa translúcida (`theme/overview-glass.sh`). Son imágenes pre-difuminadas, sin blur en tiempo real.
-
-## Requisitos
-```bash
-sudo apt install git curl gnome-tweaks gnome-shell-extension-manager sassc libglib2.0-dev-bin gnome-control-center fonts-inter -y
-git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git --depth=1 && cd WhiteSur-gtk-theme && ./install.sh -l -N glassy --round -c Light -c Dark
-git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git --depth=1 && cd WhiteSur-icon-theme && ./install.sh -a
-git clone https://github.com/vinceliuice/WhiteSur-cursors.git --depth=1 && cd WhiteSur-cursors && ./install.sh
-```
+Personalización de Zorin OS 18 (GNOME 46, Wayland) para que se vea y se comporte como macOS, sin Zorin Pro y sin desenfoque en tiempo real (ligera en RAM y GPU).
 
 ## Instalar
+
+En un equipo nuevo, un solo comando instala los requisitos y aplica todo:
+
+```bash
+git clone https://github.com/cjose43abg/zorin_bigsour.git && cd zorin_bigsour && ./install.sh --requisitos
+```
+
+Si los requisitos ya están instalados:
+
 ```bash
 ./install.sh
 ```
-Después **cierra sesión y vuelve a entrar** (en Wayland GNOME no carga extensiones nuevas hasta reiniciar la sesión).
 
-## Copia exacta
-`dconf/` contiene un snapshot de los ajustes reales del equipo original (dock con ancho dinámico, margen, esquinas, tema, fuentes, fondo y atajos). `install.sh` lo aplica al final, de modo que el resultado coincide con el original. Para volver a capturarlo: `dconf dump /ruta/ > dconf/archivo.ini`.
+El instalador pregunta antes de dos pasos: ajustar Brave (lo cierra) y cambiar la pantalla de inicio de sesión (pide contraseña de administrador). Con `--si` responde «sí» a todo.
 
-Para vigilar cambios de ajustes del dock mientras los modificas: `dconf watch /org/gnome/shell/extensions/zorin-taskbar/`.
+Al terminar, **cierra sesión y vuelve a entrar**: en Wayland, GNOME no carga extensiones nuevas hasta reiniciar la sesión.
 
-## Claro / oscuro
-`scripts/zorin-tema-sync` vigila `color-scheme` y ajusta tema GTK, Shell, iconos y tema de ventanas a WhiteSur-Light o WhiteSur-Dark. Se inicia con la sesión. Manual: `zorin-tema-sync dark|light`. En Brave elige *Apariencia → Modo: Igual que el dispositivo*; en Claude, *Ajustes → Apariencia → Sistema*.
+Cada parte también se puede aplicar por separado con su script (ver tabla).
+
+## Qué incluye
+
+### Barra superior
+| Qué | Dónde |
+|---|---|
+| Reloj y fecha a la derecha, junto a la bandeja | `extension/clock-right@local/extension.js` |
+| Botones apagar, reiniciar y suspender a la izquierda | `extension/clock-right@local/extension.js` |
+| Panel más oscuro, sin transiciones de resaltado | `theme/panel-dark.txt`, `theme/no-transitions.css` |
+
+### Dock (Zorin Taskbar)
+| Qué | Dónde |
+|---|---|
+| Centrado, ancho dinámico, bordes redondeados, sin logo de Zorin ni bandeja, en cada monitor | `scripts/ajustar-equipo.sh` |
+| Se oculta siempre y aparece al llevar el puntero al borde inferior | `scripts/ajustar-equipo.sh` |
+| **Efecto ola**: el icono bajo el puntero crece hasta 1,6× y sus vecinos menos (`MAX`, `SPREAD`) | `extension/clock-right@local/magnify.js` |
+| Iconos a 12 px de distancia en vez de 24, sin cambiar su tamaño (`MARGIN`, `SIDE`) | `extension/clock-right@local/spacing.js` |
+| Finder, Launchpad (abre todas las apps), menú Apple, App Store, Configuración | `applications/`, `icons/` |
+
+### Iconos
+| Qué | Dónde |
+|---|---|
+| Tema WhiteSur (iconos y cursor) | requisitos |
+| Iconos propios: Finder (carita), App Store (A), Launchpad (cuadrícula), Apple | `icons/` |
+| **Iconos por función**: cada programa toma el icono de su equivalente en macOS (navegador → Safari, WhatsApp → Mensajes, correo → Mail, PDF → Libros, vídeos → TV, música, fotos, notas, recordatorios, calculadora, cámara, reloj, contactos, tiempo, grabadora → Notas de voz, podcasts, traductor, contraseñas → Cartera, Zoom → FaceTime, configuración, monitor del sistema). Revertir: `--revertir` | `scripts/iconos-apps.sh`, `icons/mac/` |
+| **Iconos del escritorio proporcionados**: casilla de 92 px en vez de 120, nombres a 9 pt, selección ceñida. Revertir: `--revertir` | `theme/iconos-escritorio.sh` |
+
+### Ventanas
+| Qué | Dónde |
+|---|---|
+| Tema WhiteSur claro/oscuro; botones rojo/amarillo/verde a la izquierda | requisitos, `install.sh` |
+| Botones de 12 px y juntos (17 px entre centros) en apps GTK4, GTK3 y Brave | `theme/botones-ventana.sh`, `theme/gtk4-window-buttons.sh` |
+| **Brave** con los botones del sistema al lado de las pestañas (tema GTK) y sin el aviso de WebGPU | `scripts/brave-ajustes.sh` |
+| Tipografía Inter en toda la interfaz (equivalente libre de San Francisco; SF no se puede usar fuera de Apple) | `install.sh` |
+
+### Claro / oscuro
+`scripts/zorin-tema-sync` (se inicia con la sesión) vigila el modo claro/oscuro y ajusta tema GTK, Shell, iconos y ventanas a WhiteSur-Light o WhiteSur-Dark. También repara los enlaces `~/.config/gtk-4.0/gtk.css` y `gtk-dark.css` para que **Finder** cambie con el modo. Manual: `zorin-tema-sync dark|light`. En Brave: *Apariencia → Modo: Igual que el dispositivo*; en Claude: *Ajustes → Apariencia → Sistema*.
+
+### Fondos y pantallas
+| Qué | Dónde |
+|---|---|
+| Fondo Tahoe día/noche (cambia con el modo claro/oscuro) | `wallpapers/` |
+| **Más fondos** con versión clara y oscura en Configuración → Apariencia: Tahoe, Sonoma, Ventura, Monterey, Big Sur. Se descargan (no se guardan aquí) | `scripts/fondos.sh` |
+| **Launchpad y Actividades con vidrio**: el fondo difuminado con una capa translúcida, en vez de negro. Imágenes pre-difuminadas, sin desenfoque en tiempo real | `theme/overview-glass.sh`, `wallpapers/overview-glass-*.jpeg` |
+| Pantalla de bloqueo: GNOME ya usa el fondo difuminado | — |
+| **Pantalla de inicio de sesión (GDM)** con el fondo Tahoe difuminado y WhiteSur. Revertir: `--revertir` | `theme/pantalla-inicio.sh` |
+
+### Atajos
+- **F4** abre la cuadrícula de aplicaciones.
+
+## Copia exacta de ajustes
+`dconf/` contiene un snapshot de los ajustes del equipo original (dock, tema, fuentes, fondo y atajos). `install.sh` lo aplica y luego `scripts/ajustar-equipo.sh` lo adapta a los monitores del equipo. Para volver a capturarlo: `dconf dump /ruta/ > dconf/archivo.ini`. Para vigilar cambios del dock: `dconf watch /org/gnome/shell/extensions/zorin-taskbar/`.
 
 ## Notas
-- El ancho dinámico y el centrado del dock se guardan por monitor en Zorin Taskbar. `scripts/ajustar-equipo.sh` (lo llama `install.sh`) detecta los monitores del equipo y les aplica dock centrado y dinámico, sin logo de Zorin ni bandeja. Tras conectar otro monitor, ejecútalo de nuevo.
+- Tras conectar otro monitor, ejecuta de nuevo `scripts/ajustar-equipo.sh` y vuelve a entrar.
+- Los botones de ventana de **Claude** no se pueden tematizar: la app los dibuja dentro de su propia página. `launchers-extra/com.anthropic.Claude.desktop` es un intento experimental.
+- **Brave**: si los botones vuelven a ser grises, revisa en `brave://settings/appearance` que «Tema» diga **GTK** (botón «Usar GTK») y que «Usar barra de título y bordes del sistema» esté desactivado. Si se revierte solo, desactiva la sincronización de «Configuración» en `brave://settings/braveSync/setup`.
+- `theme/iconos-escritorio.sh` usa una copia local de la extensión de iconos del escritorio; tras una actualización de Zorin, si el escritorio falla, ejecuta `--revertir` y vuelve a aplicarlo.
+- Si una actualización de Zorin reinstala su tema de inicio de sesión o WhiteSur se reinstala, vuelve a ejecutar `theme/pantalla-inicio.sh`, `theme/overview-glass.sh` y `theme/botones-ventana.sh`.
 - El radio del dock solo admite 0–5 (×5 px).
-- Los botones de ventana de apps con barra de título propia (por ejemplo Claude) no se pueden tematizar. `launchers-extra/com.anthropic.Claude.desktop` es un intento experimental (`--gtk-version=4`) que no se instala por defecto.
-- El dock se oculta siempre (`intellihide-hide-from-windows=false`) y aparece al llevar el puntero al borde inferior.
-- `theme/panel-dark.txt` y `theme/no-transitions.css` documentan los ajustes hechos al tema WhiteSur.
+
+## Créditos y licencias
+- Fondos Tahoe: [vinceliuice/MacTahoe-gtk-theme](https://github.com/vinceliuice/MacTahoe-gtk-theme) (MIT).
+- Fondos Sonoma, Ventura, Monterey y Big Sur: [vinceliuice/WhiteSur-wallpapers](https://github.com/vinceliuice/WhiteSur-wallpapers) (MIT).
+- Tema, iconos y cursor: [vinceliuice/WhiteSur](https://github.com/vinceliuice) (GPL/MIT según el proyecto).
+- Los iconos de `icons/` e `icons/mac/` son dibujos propios al estilo de macOS; no contienen material de Apple.

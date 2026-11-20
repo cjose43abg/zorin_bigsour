@@ -2,6 +2,25 @@
 # Instala la personalización estilo macOS para Zorin OS (GNOME 46, Wayland).
 set -euo pipefail
 cd "$(dirname "$0")"
+# Uso: ./install.sh              → aplica todo (pregunta antes de los pasos con sudo o que cierran Brave)
+#      ./install.sh --requisitos → instala antes paquetes, WhiteSur (tema, iconos, cursor)
+#      ./install.sh --si         → responde «sí» a todas las preguntas
+SI=false
+for a in "$@"; do case "$a" in --si) SI=true;; esac; done
+pregunta() { $SI && return 0; read -r -p "  $1 [S/n] " r; [[ ! "$r" =~ ^[nN] ]]; }
+clonar() { # repo destino (reintenta: los repos de iconos son grandes)
+  [ -d "$2/.git" ] && return 0
+  for _ in 1 2 3 4; do rm -rf "$2"; git clone --depth=1 "https://github.com/vinceliuice/$1.git" "$2" && return 0; sleep 5; done
+  return 1
+}
+if [[ " $* " == *" --requisitos "* ]]; then
+  echo "› Requisitos (paquetes y WhiteSur)"
+  sudo apt install -y git curl gnome-tweaks gnome-shell-extension-manager sassc libglib2.0-dev-bin libxml2-utils imagemagick gnome-control-center fonts-inter
+  clonar WhiteSur-gtk-theme "$HOME/WhiteSur-gtk-theme" && (cd "$HOME/WhiteSur-gtk-theme" && ./install.sh -l -N glassy --round -c Light -c Dark)
+  clonar WhiteSur-icon-theme "$HOME/WhiteSur-icon-theme" && (cd "$HOME/WhiteSur-icon-theme" && ./install.sh -a)
+  clonar WhiteSur-cursors "$HOME/WhiteSur-cursors" && (cd "$HOME/WhiteSur-cursors" && ./install.sh)
+fi
+[ -d "$HOME/.themes/WhiteSur-Light" ] || echo "  AVISO: WhiteSur no está instalado. Ejecuta ./install.sh --requisitos"
 HI="$HOME/.local/share/icons/hicolor"
 APPS="$HOME/.local/share/applications"
 EXT="$HOME/.local/share/gnome-shell/extensions"
@@ -51,7 +70,7 @@ gsettings set org.gnome.desktop.interface font-name 'Inter 10'
 gsettings set org.gnome.desktop.interface document-font-name 'Inter 10'
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 10'
 
-echo "› Brave: barra de título del sistema (botones rojo/amarillo/verde)"
+echo "› Brave en modo X11 (necesario para los botones rojo/amarillo/verde)"
 # Brave se abre en modo X11 para que GNOME dibuje la barra; la opción
 # "Usar la barra de título del sistema" debe estar activa en brave://settings/appearance
 cp launchers-extra/brave-browser.desktop "$APPS/"
@@ -67,7 +86,7 @@ gsettings set org.gnome.desktop.background picture-options 'zoom'
 echo "› F4 = todas las aplicaciones"
 gsettings set org.gnome.shell.keybindings toggle-application-view "['<Super>a','F4','XF86LaunchA','XF86Launch1']"
 
-echo "› Botones de ventana GTK4 pequeños"
+echo "› Botones de ventana: 12 px y juntos (GTK4, GTK3, Brave)"
 bash theme/gtk4-window-buttons.sh
 bash theme/botones-ventana.sh
 
@@ -99,5 +118,23 @@ bash scripts/iconos-apps.sh
 
 echo "› Ajustes de este equipo (monitor, dock, extensiones)"
 bash scripts/ajustar-equipo.sh
+
+echo "› Más fondos (Sonoma, Ventura, Monterey, Big Sur) en Configuración → Apariencia"
+bash scripts/fondos.sh || echo "  (sin conexión: se omiten los fondos extra)"
+
+echo "› Iconos del escritorio proporcionados"
+bash theme/iconos-escritorio.sh || true
+
+echo "› Reiniciar la sincronización claro/oscuro"
+pkill -f zorin-tema-sync 2>/dev/null || true
+(nohup "$HOME/.local/bin/zorin-tema-sync" >/dev/null 2>&1 &)
+
+if command -v brave-browser >/dev/null && pregunta "¿Ajustar Brave (botones del sistema junto a las pestañas)? Cierra Brave."; then
+  bash scripts/brave-ajustes.sh || true
+fi
+
+if pregunta "¿Aplicar el estilo a la pantalla de inicio de sesión? (pide contraseña de administrador)"; then
+  bash theme/pantalla-inicio.sh || true
+fi
 
 echo "Listo. Cierra sesión y vuelve a entrar para aplicar todo."

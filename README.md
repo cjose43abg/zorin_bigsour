@@ -16,6 +16,7 @@ Personalización de Zorin OS 18 (GNOME 46, Wayland) para que se vea y se comport
 - **Efecto ola en el dock** (`extension/clock-right@local/magnify.js`): al pasar el puntero, el icono crece hasta 1,6× y sus vecinos menos, como en macOS. Zorin Taskbar no lo trae; lo añade nuestra extensión. Ajustes al inicio del archivo (`MAX`, `SPREAD`).
 - **Iconos del dock más juntos** (`extension/clock-right@local/spacing.js`): 12 px entre iconos en vez de los 24 fijos de Zorin Taskbar, sin cambiar su tamaño. Ajustes: `MARGIN` y `SIDE`.
 - **Pantalla de inicio de sesión** (`theme/pantalla-inicio.sh`, pide contraseña de administrador): fondo Tahoe difuminado y tema WhiteSur en GDM, igual que la pantalla de bloqueo. Revertir: `--revertir`.
+- **Más fondos** (`scripts/fondos.sh`): Tahoe, Sonoma, Ventura, Monterey y Big Sur con versión clara y oscura, registrados en Configuración → Apariencia. Licencia MIT ([vinceliuice/WhiteSur-wallpapers](https://github.com/vinceliuice/WhiteSur-wallpapers)); se descargan, no se guardan en este repositorio.
 - **F4** abre la cuadrícula de aplicaciones.
 - **Launchpad con vidrio**: Actividades y la cuadrícula de apps muestran el fondo difuminado con una capa translúcida (`theme/overview-glass.sh`). Son imágenes pre-difuminadas, sin blur en tiempo real.
 

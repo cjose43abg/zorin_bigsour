@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Asigna a cada programa de Linux el icono de su equivalente en macOS
-# (navegador → Safari, WhatsApp → Mensajes, visor de PDF → Libros, etc.).
+# (WhatsApp → Mensajes, visor de PDF → Libros, etc.). Brave conserva su icono.
 # Los iconos son propios (icons/mac/), dibujados al estilo de macOS.
 # No toca los archivos del sistema: crea copias en ~/.local/share/applications.
 # Revertir: bash scripts/iconos-apps.sh --revertir
@@ -23,7 +23,7 @@ DESK = [f"{H}/Escritorio", f"{H}/Desktop"]
 
 # icono -> (IDs de .desktop, expresión para el nombre visible o None)
 MAP = {
- "safari":     (["brave-browser", "brave-browser-beta", "com.brave.Browser", "firefox", "firefox_firefox",
+ "safari":     (["firefox", "firefox_firefox",
                  "org.mozilla.firefox", "google-chrome", "chromium", "chromium_chromium", "microsoft-edge"], None),
  "messages":   (["com.rtosta.zapzap", "io.github.mimbrero.WhatsAppDesktop", "com.github.eneshecan.WhatsAppForLinux",
                  "whatsapp-desktop", "whatsdesk", "whatsapp-for-linux"], r"whats ?app"),

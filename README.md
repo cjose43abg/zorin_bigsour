@@ -45,7 +45,7 @@ Cada parte también se puede aplicar por separado con su script (ver tabla).
 |---|---|
 | Tema WhiteSur (iconos y cursor) | requisitos |
 | Iconos propios: Finder (carita), App Store (A), Launchpad (cuadrícula), Apple | `icons/` |
-| **Iconos por función**: cada programa toma el icono de su equivalente en macOS (navegador → Safari, WhatsApp → Mensajes, correo → Mail, PDF → Libros, vídeos → TV, música, fotos, notas, recordatorios, calculadora, cámara, reloj, contactos, tiempo, grabadora → Notas de voz, podcasts, traductor, contraseñas → Cartera, Zoom → FaceTime, configuración, monitor del sistema). Revertir: `--revertir` | `scripts/iconos-apps.sh`, `icons/mac/` |
+| **Iconos por función**: cada programa toma el icono de su equivalente en macOS (Firefox/Chrome → Safari, WhatsApp → Mensajes, correo → Mail, PDF → Libros, vídeos → TV, música, fotos, notas, recordatorios, calculadora, cámara, reloj, contactos, tiempo, grabadora → Notas de voz, podcasts, traductor, contraseñas → Cartera, Zoom → FaceTime, configuración, monitor del sistema). Brave conserva su icono original. Revertir: `--revertir` | `scripts/iconos-apps.sh`, `icons/mac/` |
 | **Iconos del escritorio proporcionados**: casilla de 92 px en vez de 120, nombres a 9 pt, selección ceñida. Revertir: `--revertir` | `theme/iconos-escritorio.sh` |
 
 ### Ventanas

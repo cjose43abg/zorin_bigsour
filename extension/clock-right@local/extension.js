@@ -79,7 +79,8 @@ export default class ClockLeft extends Extension {
         this._t1 = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 3, () => {
             this._move(); this._t1 = 0; return GLib.SOURCE_REMOVE;
         });
-        this._sig = Main.panel._rightBox.connect('actor-added', () => this._move());
+        // GNOME 46+: 'child-added' (antes 'actor-added')
+        this._sig = Main.panel._rightBox.connect('child-added', () => this._move());
     }
 
     disable() {

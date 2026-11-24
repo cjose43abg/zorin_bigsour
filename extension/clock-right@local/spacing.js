@@ -34,7 +34,10 @@ export class DockSpacing {
             const a = p?.taskbar?._showAppsIconWrapper?.realShowAppsIcon;
             if (!a || this._showAppsSigs.some(([x]) => x === a)) continue;
             a.hide();
-            this._showAppsSigs.push([a, a.connect('notify::visible', () => { if (a.visible) a.hide(); })]);
+            const entry = [a, a.connect('notify::visible', () => { if (a.visible) a.hide(); })];
+            // Si Zorin destruye el botón (al bloquear la pantalla), se olvida sin tocarlo
+            a.connect('destroy', () => { this._showAppsSigs = this._showAppsSigs.filter(x => x !== entry); });
+            this._showAppsSigs.push(entry);
         }
     }
 

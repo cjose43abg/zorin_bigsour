@@ -72,7 +72,7 @@ Cada parte también se puede aplicar por separado con su script (ver tabla).
 - **F4** abre la cuadrícula de aplicaciones.
 
 ## Copia exacta de ajustes
-`dconf/` contiene un snapshot de los ajustes del equipo original (dock, tema, fuentes, fondo y atajos). `install.sh` lo aplica y luego `scripts/ajustar-equipo.sh` lo adapta a los monitores del equipo. Para volver a capturarlo: `dconf dump /ruta/ > dconf/archivo.ini`. Para vigilar cambios del dock: `dconf watch /org/gnome/shell/extensions/zorin-taskbar/`.
+`dconf/` contiene un snapshot de los ajustes del equipo original (dock, tema, fuentes, fondo y atajos). `install.sh` lo aplica y luego `scripts/ajustar-equipo.sh` lo adapta a los monitores del equipo. Para guardar la configuración actual del equipo y subirla a GitHub: `bash scripts/guardar-config.sh`. Para vigilar cambios del dock: `dconf watch /org/gnome/shell/extensions/zorin-taskbar/`.
 
 ## Notas
 - Tras conectar otro monitor, ejecuta de nuevo `scripts/ajustar-equipo.sh` y vuelve a entrar.

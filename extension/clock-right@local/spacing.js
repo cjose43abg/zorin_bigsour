@@ -23,6 +23,19 @@ export class DockSpacing {
             this._each(icon => this._orig.call(icon));
         }
         this._proto = this._orig = null;
+        for (const [a, id] of this._showAppsSigs ?? []) { try { a.disconnect(id); } catch (e) {} }
+        this._showAppsSigs = [];
+    }
+
+    // Un solo acceso a las apps: Launchpad. Se oculta el botón de cuadrícula de Zorin
+    _hideShowApps() {
+        this._showAppsSigs ??= [];
+        for (const p of global.zorinTaskbar?.panels ?? []) {
+            const a = p?.taskbar?._showAppsIconWrapper?.realShowAppsIcon;
+            if (!a || this._showAppsSigs.some(([x]) => x === a)) continue;
+            a.hide();
+            this._showAppsSigs.push([a, a.connect('notify::visible', () => { if (a.visible) a.hide(); })]);
+        }
     }
 
     _each(fn) {
@@ -49,6 +62,7 @@ export class DockSpacing {
         this._proto = proto; this._orig = orig;
         proto._setAppIconPadding = patched;
         this._each(i => i._setAppIconPadding());
+        this._hideShowApps();
         return true;
     }
 }

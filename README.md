@@ -38,7 +38,7 @@ Cada parte también se puede aplicar por separado con su script (ver tabla).
 | Se oculta siempre y aparece al llevar el puntero al borde inferior | `scripts/ajustar-equipo.sh` |
 | **Efecto ola**: el icono bajo el puntero crece hasta 1,6× y sus vecinos menos (`MAX`, `SPREAD`) | `extension/clock-right@local/magnify.js` |
 | Iconos a 12 px de distancia en vez de 24, sin cambiar su tamaño (`MARGIN`, `SIDE`) | `extension/clock-right@local/spacing.js` |
-| Finder, Launchpad (abre todas las apps), menú Apple, App Store, Configuración | `applications/`, `icons/` |
+| Finder, Launchpad (abre todas las apps), menú Apple (sobre fondo oscuro, visible en modo claro y oscuro), App Store, Configuración. Un solo acceso a las apps: se oculta la cuadrícula de Zorin | `applications/`, `icons/`, `extension/clock-right@local/spacing.js` |
 
 ### Iconos
 | Qué | Dónde |
@@ -46,13 +46,13 @@ Cada parte también se puede aplicar por separado con su script (ver tabla).
 | Tema WhiteSur (iconos y cursor) | requisitos |
 | Iconos propios: Finder (carita), App Store (A), Launchpad (cuadrícula), Apple | `icons/` |
 | **Iconos por función**: cada programa toma el icono de su equivalente en macOS (Firefox/Chrome → Safari, WhatsApp → Mensajes, correo → Mail, PDF → Libros, vídeos → TV, música, fotos, notas, recordatorios, calculadora, cámara, reloj, contactos, tiempo, grabadora → Notas de voz, podcasts, traductor, contraseñas → Cartera, Zoom → FaceTime, configuración, monitor del sistema). Brave conserva su icono original. Revertir: `--revertir` | `scripts/iconos-apps.sh`, `icons/mac/` |
-| **Iconos del escritorio proporcionados**: casilla de 92 px en vez de 120, nombres a 9 pt, selección ceñida. Revertir: `--revertir` | `theme/iconos-escritorio.sh` |
+| **Iconos del escritorio proporcionados**: casilla de 92 px en vez de 120, nombres a 9 pt, selección ceñida. Ajusta la extensión del sistema con respaldo (pide contraseña). Revertir: `--revertir` | `theme/iconos-escritorio.sh` |
 
 ### Ventanas
 | Qué | Dónde |
 |---|---|
 | Tema WhiteSur claro/oscuro; botones rojo/amarillo/verde a la izquierda | requisitos, `install.sh` |
-| Botones de 12 px y juntos (17 px entre centros) en apps GTK4, GTK3 y Brave | `theme/botones-ventana.sh`, `theme/gtk4-window-buttons.sh` |
+| Botones del mismo tamaño en todas las apps (círculo de ~14 px, 22 px entre centros, como Brave) | `theme/botones-ventana.sh`, `theme/gtk4-window-buttons.sh` |
 | **Brave** con los botones del sistema al lado de las pestañas (tema GTK) y sin el aviso de WebGPU | `scripts/brave-ajustes.sh` |
 | Tipografía Inter en toda la interfaz (equivalente libre de San Francisco; SF no se puede usar fuera de Apple) | `install.sh` |
 
@@ -78,7 +78,7 @@ Cada parte también se puede aplicar por separado con su script (ver tabla).
 - Tras conectar otro monitor, ejecuta de nuevo `scripts/ajustar-equipo.sh` y vuelve a entrar.
 - Los botones de ventana de **Claude** no se pueden tematizar: la app los dibuja dentro de su propia página. `launchers-extra/com.anthropic.Claude.desktop` es un intento experimental.
 - **Brave**: si los botones vuelven a ser grises, revisa en `brave://settings/appearance` que «Tema» diga **GTK** (botón «Usar GTK») y que «Usar barra de título y bordes del sistema» esté desactivado. Si se revierte solo, desactiva la sincronización de «Configuración» en `brave://settings/braveSync/setup`.
-- `theme/iconos-escritorio.sh` usa una copia local de la extensión de iconos del escritorio; tras una actualización de Zorin, si el escritorio falla, ejecuta `--revertir` y vuelve a aplicarlo.
+- Tras una actualización de Zorin, o si algo se ve mal (Actividades sin vidrio, barra superior clara, iconos del escritorio), ejecuta `scripts/reparar.sh`: vuelve a aplicar lo que suele romperse y muestra un diagnóstico.
 - Si una actualización de Zorin reinstala su tema de inicio de sesión o WhiteSur se reinstala, vuelve a ejecutar `theme/pantalla-inicio.sh`, `theme/overview-glass.sh` y `theme/botones-ventana.sh`.
 - El radio del dock solo admite 0–5 (×5 px).
 
